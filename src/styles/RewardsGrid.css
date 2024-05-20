@@ -1,0 +1,15 @@
+.info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.rewards-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+h1{
+    margin-left: 1rem;
+}
