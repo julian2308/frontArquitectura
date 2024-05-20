@@ -45,7 +45,10 @@ const RewardsGrid = () => {
   const redeemPoints = (necessaryPoints, idReward) => {
     if (availablePoints >= necessaryPoints) {
       makeRequestTransaction(idReward);
-      alert("Recompensa canjeada exitosamente");
+      const confirm = prompt(`Está seguro que desea redimir esta recompensa por ${necessaryPoints} ,su nuevo saldo será ${availablePoints-necessaryPoints}`, 1)
+      confirm ? alert("Recompensa canjeada exitosamente") : null
+    } else {
+      alert("Cantidad de puntos insuficientes")
     }
   };
 

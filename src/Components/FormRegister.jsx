@@ -40,7 +40,6 @@ const FormRegister = () => {
     makeRequest();
     alert("Fue registrado exitosamente")
     navigate(`/rewards`)
-
     console.log("Form Data Submitted:", formData);
   };
 
