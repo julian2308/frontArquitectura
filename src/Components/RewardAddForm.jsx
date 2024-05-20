@@ -1,15 +1,14 @@
-import { useState } from "react";
 import "../styles/FormRegister.css"; // Asegúrate de que la ruta sea correcta
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-const FormRegister = () => {
+const RewardAddForm = () => {
 
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     nombre: "",
-    telefono: "",
-    email: "",
+    descripcion: "",
+    categoria: "",
+    puntosRequeridos: "",
   });
 
   const handleChange = (e) => {
@@ -21,17 +20,13 @@ const FormRegister = () => {
   };
 
   const makeRequest = async () => {
-    const dataToSend = {
-      ...formData,
-      puntos: 0,
-    };
 
-    await fetch("http://localhost:8080/cliente", {
+    await fetch("http://localhost:8080/recompensa", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataToSend),
+      body: JSON.stringify(formData),
     });
   };
 
@@ -39,7 +34,6 @@ const FormRegister = () => {
     e.preventDefault();
     makeRequest();
     alert("Fue registrado exitosamente")
-    navigate(`/rewards`)
     console.log("Form Data Submitted:", formData);
   };
 
@@ -57,23 +51,34 @@ const FormRegister = () => {
         />
       </div>
       <div>
-        <label htmlFor="telefono">Teléfono:</label>
+        <label htmlFor="descripcion">Descripcion:</label>
         <input
-          type="tel"
-          id="telefono"
-          name="telefono"
-          value={formData.telefono}
+          type="text"
+          id="descripcion"
+          name="descripcion"
+          value={formData.descripcion}
           onChange={handleChange}
           required
         />
       </div>
       <div>
-        <label htmlFor="email">Correo Electrónico:</label>
+        <label htmlFor="categoria">Categoría:</label>
         <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          id="categoria"
+          name="categoria"
+          value={formData.categoria}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="puntosRequeridos">Puntos requeridos:</label>
+        <input
+          type="text"
+          id="puntosRequeridos"
+          name="puntosRequeridos"
+          value={formData.puntosRequeridos}
           onChange={handleChange}
           required
         />
@@ -83,4 +88,4 @@ const FormRegister = () => {
   );
 };
 
-export default FormRegister;
+export default RewardAddForm;

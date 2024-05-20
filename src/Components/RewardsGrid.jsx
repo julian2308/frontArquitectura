@@ -90,7 +90,7 @@ const RewardsGrid = () => {
         <h3>Puntos: {availablePoints}</h3>
         <h3>Cliente: {clientName}</h3>
       </div>
-
+      <div className="rewards-grid">
       {rewards
         ? rewards.map((reward) => {
             console.log(reward.descripcion);
@@ -102,14 +102,17 @@ const RewardsGrid = () => {
               />
             );
           })
+      
+          
         : null}
-      <button onClick={handleRedirect}>Go to History</button>
+        </div> 
+      <button onClick={handleRedirect}>Ir al historial</button>
     </div>
   ) : (
     <>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="inputField">Introduce un dato:</label>
+          <label htmlFor="inputField">Introduzca el id de la persona:</label>
           <input
             type="text"
             id="inputField"

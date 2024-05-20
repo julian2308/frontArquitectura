@@ -1,8 +1,11 @@
 import "../styles/Reward.css";
+import { getRandomImage } from "../utils";
 const Reward = ({ rewardInfo, redeemPoints }) => {
   const redeem = () => {
     redeemPoints(rewardInfo.puntosRequeridos, rewardInfo.id);
   };
+
+  const image = getRandomImage();
 
   return redeemPoints !== 0 ? (
     <div className="reward">
@@ -10,23 +13,18 @@ const Reward = ({ rewardInfo, redeemPoints }) => {
       <p>Descripcion: {rewardInfo.descripcion}</p>
       <p>Categoria: {rewardInfo.categoria}</p>
       <p>Puntos requeridos: {rewardInfo.puntosRequeridos}</p>
+
+      <img src={image} alt={rewardInfo.nombre} />
       <div>
         <button className="redeem-button" onClick={redeem}>
           Canjear
         </button>
       </div>
-      <img
-        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818"
-        alt={rewardInfo.nombre}
-      />
     </div>
   ) : (
-    <div>
+    <div className="reward">
       <p>Nombre: {rewardInfo}</p>
-      <img
-        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818"
-        alt={rewardInfo.nombre}
-      />
+      <img src={image} alt={rewardInfo.nombre} />
     </div>
   );
 };
