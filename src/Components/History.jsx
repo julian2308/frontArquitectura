@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Reward from "./Reward";
 
 const History = () => {
   const { clientId } = useParams();
@@ -25,7 +26,8 @@ const History = () => {
         ? transactions.map((transaction,index) => {
             console.log(transaction);
             return (
-              <li key={index}>{transaction.nombreRecompensa}</li>
+              //<li key={index}>{transaction.nombreRecompensa}</li>
+              <Reward redeemPoints={0} rewardInfo={transaction.nombreRecompensa}/>
             );
           })
         : 

@@ -5,9 +5,22 @@ import "../styles/RewardsGrid.css";
 
 const RewardsGrid = () => {
   const [rewards, setRewards] = useState([]);
-  const [availablePoints] = useState(10);
+  const [availablePoints, setAvailablePoints] = useState(0);
   const navigate = useNavigate();
-  const [clientId] = useState(1);
+  const [inputValue, setInputValue] = useState("");
+  const [clientId, setClientId] = useState(null);
+  const [clientName, setClientName] = useState(null);
+  const [trigger, setTrigger] = useState(0)
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setClientId(inputValue)
+  };
+
 
   const handleRedirect = () => {
     navigate(`/history/${clientId}`);
@@ -15,7 +28,7 @@ const RewardsGrid = () => {
 
   const makeRequestTransaction = async (idReward) => {
     const dataToSend = {
-      clienteId: 1,
+      clienteId: clientId,
       recompensaId: idReward,
     };
     await fetch("http://localhost:8080/transaccion", {
@@ -25,6 +38,8 @@ const RewardsGrid = () => {
       },
       body: JSON.stringify(dataToSend),
     });
+
+    setTrigger(prev => prev+1)
   };
 
   const redeemPoints = (necessaryPoints, idReward) => {
@@ -32,6 +47,21 @@ const RewardsGrid = () => {
       makeRequestTransaction(idReward);
       alert("Recompensa canjeada exitosamente");
     }
+  };
+
+  const getPointsFromUserById = () => {
+    fetch(`http://localhost:8080/cliente/${clientId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAvailablePoints(data.puntos)
+        setClientName(data.nombre)
+      })
+      .catch((error) => console.error("Error fetching xd:", error));
   };
 
   useEffect(() => {
@@ -46,11 +76,16 @@ const RewardsGrid = () => {
       .catch((error) => console.error("Error fetching rewards:", error));
   }, []);
 
-  return (
+  useEffect(() => {
+    getPointsFromUserById();
+  }, [clientId,trigger])
+
+  return clientId ? (
     <div>
       <div className="info">
         <h3>Las recompensas disponibles actualmente son:</h3>
         <h3>Puntos: {availablePoints}</h3>
+        <h3>Cliente: {clientName}</h3>
       </div>
 
       {rewards
@@ -65,8 +100,24 @@ const RewardsGrid = () => {
             );
           })
         : null}
-        <button onClick={handleRedirect}>Go to History</button>
+      <button onClick={handleRedirect}>Go to History</button>
     </div>
+  ) : (
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="inputField">Introduce un dato:</label>
+          <input
+            type="text"
+            id="inputField"
+            value={inputValue}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Enviar</button>
+      </form>
+      
+    </>
   );
 };
 

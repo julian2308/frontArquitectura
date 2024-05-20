@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "../styles/FormRegister.css"; // Asegúrate de que la ruta sea correcta
+import { useNavigate } from "react-router-dom";
 
 const FormRegister = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     telefono: "",
@@ -34,6 +38,9 @@ const FormRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     makeRequest();
+    alert("Fue registrado exitosamente")
+    navigate(`/rewards`)
+
     console.log("Form Data Submitted:", formData);
   };
 
