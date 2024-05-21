@@ -6,8 +6,14 @@ const PointIncreaser = () => {
     cantidadPuntos: "",
   });
 
+  const [clientId, setClientId] = useState()
+  const [client, setClient] = useState()
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "idPersona"){
+      setClientId(value)
+    }
     setFormData({
       ...formData,
       [name]: value,
@@ -24,8 +30,23 @@ const PointIncreaser = () => {
     });
   };
 
+  const getPointsFromUserById = () => {
+    fetch(`http://localhost:8080/cliente/${clientId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setClient(data)
+      })
+      .catch((error) => console.error("Error fetching xd:", error));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     makeRequest();
     alert("Los puntos se actualizaron correctamente");
     console.log("Form Data Submitted:", formData);
@@ -34,6 +55,7 @@ const PointIncreaser = () => {
         cantidadPuntos: "",
       });
   };
+
 
   return (
     <>

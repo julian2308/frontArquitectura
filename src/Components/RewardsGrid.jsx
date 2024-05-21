@@ -10,7 +10,7 @@ const RewardsGrid = () => {
   const [inputValue, setInputValue] = useState("");
   const [clientId, setClientId] = useState(null);
   const [clientName, setClientName] = useState(null);
-  const [trigger, setTrigger] = useState(0)
+  const [trigger, setTrigger] = useState(0);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -18,12 +18,11 @@ const RewardsGrid = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setClientId(inputValue)
+    setClientId(inputValue);
   };
 
-
   const handleRedirect = () => {
-    navigate(`/history/${clientId}`);
+    navigate(`/frontArquitectura/history/${clientId}`);
   };
 
   const makeRequestTransaction = async (idReward) => {
@@ -39,16 +38,21 @@ const RewardsGrid = () => {
       body: JSON.stringify(dataToSend),
     });
 
-    setTrigger(prev => prev+1)
+    setTrigger((prev) => prev + 1);
   };
 
   const redeemPoints = (necessaryPoints, idReward) => {
     if (availablePoints >= necessaryPoints) {
       makeRequestTransaction(idReward);
-      const confirm = prompt(`Está seguro que desea redimir esta recompensa por ${necessaryPoints} ,su nuevo saldo será ${availablePoints-necessaryPoints}`, 1)
-      confirm ? alert("Recompensa canjeada exitosamente") : null
+      const confirm = prompt(
+        `Está seguro que desea redimir esta recompensa por ${necessaryPoints} ,su nuevo saldo será ${
+          availablePoints - necessaryPoints
+        }`,
+        1
+      );
+      confirm ? alert("Recompensa canjeada exitosamente") : null;
     } else {
-      alert("Cantidad de puntos insuficientes")
+      alert("Cantidad de puntos insuficientes");
     }
   };
 
@@ -61,8 +65,8 @@ const RewardsGrid = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAvailablePoints(data.puntos)
-        setClientName(data.nombre)
+        setAvailablePoints(data.puntos);
+        setClientName(data.nombre);
       })
       .catch((error) => console.error("Error fetching xd:", error));
   };
@@ -81,7 +85,7 @@ const RewardsGrid = () => {
 
   useEffect(() => {
     getPointsFromUserById();
-  }, [clientId,trigger])
+  }, [clientId, trigger]);
 
   return clientId ? (
     <div>
@@ -91,21 +95,19 @@ const RewardsGrid = () => {
         <h3>Cliente: {clientName}</h3>
       </div>
       <div className="rewards-grid">
-      {rewards
-        ? rewards.map((reward) => {
-            console.log(reward.descripcion);
-            return (
-              <Reward
-                rewardInfo={reward}
-                redeemPoints={redeemPoints}
-                key={reward.id}
-              />
-            );
-          })
-      
-          
-        : null}
-        </div> 
+        {rewards
+          ? rewards.map((reward) => {
+              console.log(reward.descripcion);
+              return (
+                <Reward
+                  rewardInfo={reward}
+                  redeemPoints={redeemPoints}
+                  key={reward.id}
+                />
+              );
+            })
+          : null}
+      </div>
       <button onClick={handleRedirect}>Ir al historial</button>
     </div>
   ) : (
@@ -122,7 +124,6 @@ const RewardsGrid = () => {
         </div>
         <button type="submit">Enviar</button>
       </form>
-      
     </>
   );
 };

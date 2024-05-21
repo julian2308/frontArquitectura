@@ -39,7 +39,7 @@ const RegisterForm = () => {
     e.preventDefault();
     makeRequest();
     alert("Fue registrado exitosamente")
-    navigate(`/rewards`)
+    navigate(`/frontArquitectura/rewards`)
     console.log("Form Data Submitted:", formData);
   };
 

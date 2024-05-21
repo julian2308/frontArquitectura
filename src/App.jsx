@@ -14,12 +14,12 @@ const App = () => {
       <NavigationMenu/>
       
         <Routes>
-          <Route path="/" element={<ClientIdInput/>} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/rewards" element={<RewardsGrid />} />
-          <Route path="/history/:clientId" element={<History />} />
-          <Route path="/points" element={<PointIncreaser />} />
-          <Route path="/rewardsForm" element={<RewardAddForm />} />
+          <Route path="/frontArquitectura" element={<ClientIdInput/>} />
+          <Route path="/frontArquitectura/register" element={<RegisterForm />} />
+          <Route path="/frontArquitectura/rewards" element={<RewardsGrid />} />
+          <Route path="/frontArquitectura/history/:clientId" element={<History />} />
+          <Route path="/frontArquitectura/points" element={<PointIncreaser />} />
+          <Route path="/frontArquitectura/rewardsForm" element={<RewardAddForm />} />
         </Routes>
       </div>
     </Router>
