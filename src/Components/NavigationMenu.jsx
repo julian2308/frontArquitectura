@@ -6,19 +6,19 @@ const NavigationMenu = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Inicio</Link>
+          <Link to="/frontArquitectura">Inicio</Link>
         </li>
         <li>
-          <Link to="/register">Registro</Link>
+          <Link to="/frontArquitectura/register">Registro</Link>
         </li>
         <li>
-          <Link to="/rewards">Recompensas</Link>
+          <Link to="/frontArquitectura/rewards">Recompensas</Link>
         </li>
         <li>
-          <Link to="/points">Puntos</Link>
+          <Link to="/frontArquitectura/points">Puntos</Link>
         </li>
         <li>
-          <Link to="/rewardsForm">Añadir recompensa</Link>
+          <Link to="/frontArquitectura/rewardsForm">Añadir recompensa</Link>
         </li>
       </ul>
     </nav>

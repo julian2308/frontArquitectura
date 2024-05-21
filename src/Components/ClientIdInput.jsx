@@ -12,7 +12,7 @@ const ClientIdInput = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (clientId.trim()) {
-      navigate(`/history/${clientId}`);
+      navigate(`/frontArquitectura/history/${clientId}`);
     }
   };
 
